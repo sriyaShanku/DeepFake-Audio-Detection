@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Ignore model files
+*.pkl
+
+dataset/real/Call Recording.mp4
+
+# Ignore specific file
+review.md
+
+# Logs
+*.log
+
+
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# Cache / temp
+.cache/
+temp/
+tmp/
+
+# Node (if used later)
+node_modules/
+
+# Coverage / testing
+.coverage
+htmlcov/

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | DeepGuard</title>
+    <meta name="description" content="Learn how DeepGuard's deepfake audio detection technology works.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { navy: '#0F172A', indigo: '#6366F1', cyan: '#22D3EE', softgrey: '#94A3B8' },
+                    fontFamily: { sans: ['Inter', 'Poppins', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-navy dark:text-white transition-colors duration-300 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 dark:bg-navy/80 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl mr-2">🎙️</span>
+                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">DeepGuard</span>
+                </a>
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="detect.html" class="nav-link"><i class="fas fa-search"></i> Detect</a>
+                    <a href="call-detection.html" class="nav-link"><i class="fas fa-phone-alt"></i> Call Alert</a>
+                    <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+                    <a href="about.html" class="nav-link active"><i class="fas fa-info-circle"></i> About</a>
+                    <button id="theme-toggle" class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-navy border-b border-gray-200 dark:border-gray-800 mobile-menu-open">
+            <div class="px-3 py-3 space-y-1 flex flex-col">
+                <a href="index.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-home w-5"></i> Home</a>
+                <a href="detect.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-search w-5"></i> Detect Audio</a>
+                <a href="call-detection.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-phone-alt w-5"></i> Call Alert</a>
+                <a href="history.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-history w-5"></i> History</a>
+                <a href="about.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium bg-indigo/10 text-indigo"><i class="fas fa-info-circle w-5"></i> About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HOW IT WORKS -->
+    <section class="pt-24 pb-16 bg-gray-50 dark:bg-[#0B1121]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h1 class="text-3xl md:text-4xl font-bold font-poppins mb-4">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">How DeepGuard Works</span>
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Behind the scenes of our deepfake detection engine.</p>
+            </div>
+
+            <!-- Process Steps -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
+                <div class="glass-card p-6 rounded-2xl text-center border border-gray-200 dark:border-gray-800 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto bg-indigo/10 rounded-full flex items-center justify-center text-indigo text-2xl mb-4 shadow-sm">🔊</div>
+                    <h3 class="text-lg font-bold mb-2">1. Upload Audio</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Audio is loaded, normalized, and silent regions are trimmed for optimal processing.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center border border-gray-200 dark:border-gray-800 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto bg-cyan/10 rounded-full flex items-center justify-center text-cyan text-2xl mb-4 shadow-sm">🔬</div>
+                    <h3 class="text-lg font-bold mb-2">2. Feature Extraction</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">MFCCs, spectral contrast, chroma, and ZCR are extracted to build a comprehensive audio profile.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center border border-gray-200 dark:border-gray-800 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto bg-purple-500/10 rounded-full flex items-center justify-center text-purple-500 text-2xl mb-4 shadow-sm">🧠</div>
+                    <h3 class="text-lg font-bold mb-2">3. ML Classification</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">A trained Random Forest classifier evaluates the features to determine real vs. fake.</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center border border-gray-200 dark:border-gray-800 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 mx-auto bg-green-500/10 rounded-full flex items-center justify-center text-green-500 text-2xl mb-4 shadow-sm">📊</div>
+                    <h3 class="text-lg font-bold mb-2">4. Results & Score</h3>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">A confidence score and risk level are generated to help you make an informed decision.</p>
+                </div>
+            </div>
+
+            <!-- Feature Details -->
+            <div class="mb-20">
+                <h2 class="text-2xl font-bold font-poppins mb-8 text-center">Feature Extraction Deep Dive</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <div class="glass-card p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo/10 flex items-center justify-center text-indigo"><i class="fas fa-chart-bar"></i></div>
+                            <h3 class="font-bold">MFCC (40 coefficients)</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Mel Frequency Cepstral Coefficients capture the shape of the vocal tract. AI-generated voices often produce subtly different MFCC patterns than real human speech.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-cyan/10 flex items-center justify-center text-cyan"><i class="fas fa-wave-square"></i></div>
+                            <h3 class="font-bold">Spectral Contrast</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Measures the difference in amplitude between peaks and valleys in the sound spectrum. Deepfake audio tends to have more uniform spectral patterns.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500"><i class="fas fa-music"></i></div>
+                            <h3 class="font-bold">Chroma Features</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Analyzes pitch class energy distribution across the 12 pitch classes. Reveals harmonic characteristics unique to natural speech.</p>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl border border-gray-200 dark:border-gray-800">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center text-green-500"><i class="fas fa-bolt"></i></div>
+                            <h3 class="font-bold">Zero Crossing Rate</h3>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Measures how often the signal crosses zero. Helps detect the rhythm, noise levels, and micro-variations that distinguish real from synthetic speech.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="py-16 bg-white dark:bg-navy border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm text-gray-500 font-bold uppercase tracking-widest mb-8">Powered By</p>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6">
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fab fa-python text-blue-500 mr-2"></i> Python
+                </span>
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fas fa-bolt text-teal-500 mr-2"></i> FastAPI
+                </span>
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fas fa-database text-gray-500 mr-2"></i> SQLite
+                </span>
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fas fa-robot text-orange-500 mr-2"></i> Scikit-Learn
+                </span>
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fas fa-headphones text-pink-500 mr-2"></i> Librosa
+                </span>
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fab fa-css3-alt text-sky-500 mr-2"></i> Tailwind CSS
+                </span>
+                <span class="px-5 py-2.5 bg-gray-50 dark:bg-[#151D2F] border border-gray-200 dark:border-gray-700 rounded-full text-sm font-medium shadow-sm hover:-translate-y-1 transition-transform">
+                    <i class="fas fa-plug text-yellow-500 mr-2"></i> WebSocket
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PROJECT -->
+    <section class="py-16 bg-gray-50 dark:bg-[#0B1121] border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold font-poppins mb-4">About This Project</h2>
+            <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+                DeepGuard is a deepfake audio detection system developed as a Final Year Mini Project. It uses machine learning to analyze audio features and determine whether a voice is genuine or AI-generated. 
+                The system supports both file upload analysis and real-time phone call monitoring through browser microphone access.
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="detect.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo to-cyan text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-search"></i> Try Detection
+                </a>
+                <a href="call-detection.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300">
+                    <i class="fas fa-phone-alt"></i> Call Alert
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 border-t border-gray-800 text-gray-400 py-12 text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center justify-center md:justify-start mb-4 text-white">
+                        <span class="text-2xl mr-2">🎙️</span>
+                        <span class="font-poppins font-bold text-xl tracking-tight">DeepGuard</span>
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-sm">Deepfake Audio Detection System — Final Year Mini Project.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a>
+                    <a href="detect.html" class="text-gray-400 hover:text-white transition-colors text-sm">Detect</a>
+                    <a href="history.html" class="text-gray-400 hover:text-white transition-colors text-sm">History</a>
+                </div>
+            </div>
+            <div class="mt-10 pt-8 border-t border-gray-800 text-sm text-center text-gray-500">
+                <p>&copy; 2025 DeepGuard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

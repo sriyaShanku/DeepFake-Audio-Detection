@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detect Audio | DeepGuard</title>
+    <meta name="description" content="Upload audio files to detect deepfake AI-generated voices with DeepGuard's ML-powered analysis.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { navy: '#0F172A', indigo: '#6366F1', cyan: '#22D3EE', softgrey: '#94A3B8' },
+                    fontFamily: { sans: ['Inter', 'Poppins', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-navy dark:text-white transition-colors duration-300 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 dark:bg-navy/80 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl mr-2">🎙️</span>
+                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">DeepGuard</span>
+                </a>
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="detect.html" class="nav-link active"><i class="fas fa-search"></i> Detect</a>
+                    <a href="call-detection.html" class="nav-link"><i class="fas fa-phone-alt"></i> Call Alert</a>
+                    <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+                    <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                    <button id="theme-toggle" class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-navy border-b border-gray-200 dark:border-gray-800 mobile-menu-open">
+            <div class="px-3 py-3 space-y-1 flex flex-col">
+                <a href="index.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-home w-5"></i> Home</a>
+                <a href="detect.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium bg-indigo/10 text-indigo"><i class="fas fa-search w-5"></i> Detect Audio</a>
+                <a href="call-detection.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-phone-alt w-5"></i> Call Alert</a>
+                <a href="history.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-history w-5"></i> History</a>
+                <a href="about.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-info-circle w-5"></i> About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DETECT AUDIO SECTION -->
+    <section class="pt-24 pb-20 min-h-screen bg-gray-50 dark:bg-[#0B1121]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold font-poppins mb-4">
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">Audio Analysis Dashboard</span>
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Upload any .wav or .mp3 file to instantly determine if it contains synthetic, AI-generated speech.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                <!-- Upload Panel -->
+                <div class="lg:col-span-3">
+                    <div class="glass-card rounded-2xl p-6 shadow-xl relative overflow-hidden transition-all duration-300 border border-gray-200 dark:border-gray-800">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo to-cyan"></div>
+                        <div id="drop-zone" class="border-3 border-dashed border-gray-300 dark:border-gray-700 px-6 py-12 rounded-xl text-center hover:border-indigo dark:hover:border-indigo transition-colors cursor-pointer bg-white dark:bg-navy/30 relative mt-2 group">
+                            <input type="file" id="file-input" accept=".wav,.mp3" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                            <div id="upload-prompt" class="pointer-events-none transition-transform group-hover:scale-105 duration-300">
+                                <i class="fas fa-cloud-upload-alt text-5xl text-gray-400 dark:text-gray-500 mb-4 group-hover:text-indigo transition-colors duration-300"></i>
+                                <p class="text-xl font-medium mb-1 dark:text-white">☁️ Drag & Drop Audio File</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">(.wav or .mp3 supported)</p>
+                                <div class="flex items-center justify-center space-x-4">
+                                    <hr class="w-16 border-gray-300 dark:border-gray-600">
+                                    <span class="text-gray-400 text-sm">── or ──</span>
+                                    <hr class="w-16 border-gray-300 dark:border-gray-600">
+                                </div>
+                                <button class="mt-4 px-6 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors pointer-events-auto">
+                                    [ Browse File ]
+                                </button>
+                                <div class="mt-6 flex justify-center flex-col items-center space-y-2 text-xs text-gray-500">
+                                    <span>✅ Accepted: WAV, MP3</span>
+                                    <span>📦 Max Size: 50MB</span>
+                                </div>
+                            </div>
+                            <div id="file-info" class="hidden pointer-events-none fade-in">
+                                <i class="fas fa-file-audio text-5xl text-indigo mb-4"></i>
+                                <p id="file-name" class="text-lg font-medium text-gray-900 dark:text-white truncate px-4"></p>
+                                <p id="file-size" class="text-sm text-gray-500 dark:text-gray-400 mt-1"></p>
+                                <p class="text-xs text-indigo mt-4">Click or drag again to replace</p>
+                            </div>
+                        </div>
+                        <div id="audio-preview-container" class="mt-6 hidden fade-in">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Audio Preview</label>
+                            <audio id="audio-player" controls class="w-full h-12 rounded-lg outline-none custom-audio-player"></audio>
+                        </div>
+                        <button id="analyze-btn" disabled class="mt-8 w-full py-4 bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-bold rounded-xl text-lg transition-all duration-300 flex items-center justify-center pointer-events-none">
+                            <i class="fas fa-waveform mr-2"></i> Analyze Audio
+                        </button>
+                        <div id="error-message" class="hidden mt-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-400 rounded-lg text-sm text-center">
+                            Error reading file.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Panel -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="glass-card rounded-2xl p-6 shadow-lg h-full border border-gray-200 dark:border-gray-800 bg-white/50 dark:bg-navy/50">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center text-gray-800 dark:text-white">
+                            <i class="fas fa-microscope text-cyan mr-2"></i> Extraction Features
+                        </h3>
+                        <details class="group bg-white dark:bg-gray-900 rounded-xl mb-4 shadow-sm" open>
+                            <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 rounded-xl border border-gray-200 dark:border-gray-700">
+                                <span class="text-sm">How it works</span>
+                                <span class="transition group-open:rotate-180"><i class="fas fa-chevron-down text-gray-400"></i></span>
+                            </summary>
+                            <div class="text-gray-600 dark:text-gray-400 mt-3 group-open:animate-fadeIn p-4 pt-0 text-sm">
+                                <div class="space-y-4">
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-indigo/10 flex items-center justify-center text-indigo"><i class="fas fa-chart-bar text-xs"></i></div>
+                                        <div class="ml-3"><h4 class="text-xs font-bold text-gray-800 dark:text-gray-200">MFCC</h4><p class="text-xs">Mel Frequency Cepstral Coefficients map vocal tract shape.</p></div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-cyan/10 flex items-center justify-center text-cyan"><i class="fas fa-wave-square text-xs"></i></div>
+                                        <div class="ml-3"><h4 class="text-xs font-bold text-gray-800 dark:text-gray-200">Spectral Contrast</h4><p class="text-xs">Captures frequency band energy differences.</p></div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-500"><i class="fas fa-music text-xs"></i></div>
+                                        <div class="ml-3"><h4 class="text-xs font-bold text-gray-800 dark:text-gray-200">Chroma Features</h4><p class="text-xs">Analyzes pitch class energy distribution.</p></div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/10 flex items-center justify-center text-green-500"><i class="fas fa-bolt text-xs"></i></div>
+                                        <div class="ml-3"><h4 class="text-xs font-bold text-gray-800 dark:text-gray-200">Zero Crossing Rate</h4><p class="text-xs">Detects signal rhythm and inherent noise levels.</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Display -->
+            <div id="result-container" class="mt-12 w-full max-w-4xl mx-auto hidden pt-8 border-t border-gray-200 dark:border-gray-800"></div>
+        </div>
+    </section>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loading-overlay" class="fixed inset-0 z-[100] bg-white/90 dark:bg-navy/95 backdrop-blur-xl hidden flex-col items-center justify-center">
+        <div class="w-72 bg-white dark:bg-[#151D2F] p-8 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800">
+            <div class="flex justify-center items-center h-20 space-x-1 mb-8">
+                <div class="w-1.5 h-8 bg-indigo rounded-full animate-wave" style="animation-delay: 0s;"></div>
+                <div class="w-1.5 h-16 bg-cyan rounded-full animate-wave" style="animation-delay: -0.2s;"></div>
+                <div class="w-1.5 h-12 bg-indigo rounded-full animate-wave" style="animation-delay: -0.4s;"></div>
+                <div class="w-1.5 h-20 bg-cyan rounded-full animate-wave" style="animation-delay: -0.6s;"></div>
+                <div class="w-1.5 h-10 bg-indigo rounded-full animate-wave" style="animation-delay: -0.8s;"></div>
+            </div>
+            <div class="space-y-4">
+                <div class="loading-step flex items-center opacity-30 transition-opacity duration-300" id="step-1">
+                    <i class="fas fa-check-circle text-green-500 mr-3 w-5 text-center hidden"></i>
+                    <i class="fas fa-circle-notch fa-spin text-indigo mr-3 w-5 text-center spinner"></i>
+                    <span class="text-sm font-medium">Uploading file...</span>
+                </div>
+                <div class="loading-step flex items-center opacity-30 transition-opacity duration-300" id="step-2">
+                    <i class="fas fa-check-circle text-green-500 mr-3 w-5 text-center hidden"></i>
+                    <i class="fas fa-circle-notch fa-spin text-indigo mr-3 w-5 text-center spinner"></i>
+                    <span class="text-sm font-medium">Preprocessing audio...</span>
+                </div>
+                <div class="loading-step flex items-center opacity-30 transition-opacity duration-300" id="step-3">
+                    <i class="fas fa-check-circle text-green-500 mr-3 w-5 text-center hidden"></i>
+                    <i class="fas fa-circle-notch fa-spin text-indigo mr-3 w-5 text-center spinner"></i>
+                    <span class="text-sm font-medium">Extracting features...</span>
+                </div>
+                <div class="loading-step flex items-center opacity-30 transition-opacity duration-300" id="step-4">
+                    <i class="fas fa-check-circle text-green-500 mr-3 w-5 text-center hidden"></i>
+                    <i class="fas fa-circle-notch fa-spin text-indigo mr-3 w-5 text-center spinner"></i>
+                    <span class="text-sm font-medium">Running ML classifier...</span>
+                </div>
+                <div class="loading-step flex items-center opacity-30 transition-opacity duration-300" id="step-5">
+                    <i class="fas fa-check-circle text-green-500 mr-3 w-5 text-center hidden"></i>
+                    <i class="fas fa-circle-notch fa-spin text-indigo mr-3 w-5 text-center spinner"></i>
+                    <span class="text-sm font-medium">Generating score...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 border-t border-gray-800 text-gray-400 py-12 text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center justify-center md:justify-start mb-4 text-white">
+                        <span class="text-2xl mr-2">🎙️</span>
+                        <span class="font-poppins font-bold text-xl tracking-tight">DeepGuard</span>
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-sm">Deepfake Audio Detection System.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a>
+                    <a href="history.html" class="text-gray-400 hover:text-white transition-colors text-sm">History</a>
+                    <a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">About</a>
+                </div>
+            </div>
+            <div class="mt-10 pt-8 border-t border-gray-800 text-sm text-center text-gray-500">
+                <p>&copy; 2025 DeepGuard. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/result.js"></script>
+    <script src="assets/js/upload.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

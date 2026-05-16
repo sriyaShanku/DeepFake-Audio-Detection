@@ -1,5 +1,24 @@
 /* ===== Custom Styles for DeepGuard ===== */
 
+/* ===== Hero Arc Title ===== */
+.hero-arc-wrapper {
+    width: 100%;
+    max-width: 780px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: arcFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.hero-arc-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 0 18px rgba(99, 102, 241, 0.35));
+}
+@keyframes arcFadeIn {
+    from { opacity: 0; transform: translateY(-18px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
 /* Glassmorphism Card */
 .glass-card {
     background: rgba(255, 255, 255, 0.6);

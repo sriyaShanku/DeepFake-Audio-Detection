@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About | DeepGuard</title>
-    <meta name="description" content="Learn how DeepGuard's deepfake audio detection technology works.">
+    <title>About | Deepfake Audio Detection</title>
+    <meta name="description" content="Learn how Deepfake Audio Detection's deepfake audio analysis works.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -29,13 +29,14 @@
             <div class="flex justify-between items-center h-16">
                 <a href="index.html" class="flex-shrink-0 flex items-center">
                     <span class="text-2xl mr-2">🎙️</span>
-                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">DeepGuard</span>
+                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">Deepfake Audio Detection</span>
                 </a>
                 <div class="hidden md:flex items-center gap-1">
                     <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
                     <a href="detect.html" class="nav-link"><i class="fas fa-search"></i> Detect</a>
                     <a href="call-detection.html" class="nav-link"><i class="fas fa-phone-alt"></i> Call Alert</a>
                     <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+                    <a href="analytics.html" class="nav-link"><i class="fas fa-chart-pie"></i> Analytics</a>
                     <a href="about.html" class="nav-link active"><i class="fas fa-info-circle"></i> About</a>
                     <button id="theme-toggle" class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
                         <i class="fas fa-moon dark:hidden text-gray-600"></i>
@@ -59,6 +60,7 @@
                 <a href="detect.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-search w-5"></i> Detect Audio</a>
                 <a href="call-detection.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-phone-alt w-5"></i> Call Alert</a>
                 <a href="history.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-history w-5"></i> History</a>
+                <a href="analytics.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-chart-pie w-5"></i> Analytics</a>
                 <a href="about.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium bg-indigo/10 text-indigo"><i class="fas fa-info-circle w-5"></i> About</a>
             </div>
         </div>
@@ -69,7 +71,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h1 class="text-3xl md:text-4xl font-bold font-poppins mb-4">
-                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">How DeepGuard Works</span>
+                    <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">How Deepfake Audio Detection Works</span>
                 </h1>
                 <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">Behind the scenes of our deepfake detection engine.</p>
             </div>
@@ -170,9 +172,7 @@
         <div class="max-w-3xl mx-auto px-4 text-center">
             <h2 class="text-2xl font-bold font-poppins mb-4">About This Project</h2>
             <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
-                DeepGuard is a deepfake audio detection system developed as a Final Year Mini Project. It uses machine learning to analyze audio features and determine whether a voice is genuine or AI-generated. 
-                The system supports both file upload analysis and real-time phone call monitoring through browser microphone access.
-            </p>
+                Deepfake Audio Detection is a deepfake audio detection system that uses machine learning to analyze audio features and determine whether a voice is genuine or AI-generated. It supports both file upload analysis and real-time phone call monitoring through browser microphone access.
             <div class="flex justify-center gap-4">
                 <a href="detect.html" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo to-cyan text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300">
                     <i class="fas fa-search"></i> Try Detection
@@ -191,7 +191,7 @@
                 <div class="mb-6 md:mb-0">
                     <div class="flex items-center justify-center md:justify-start mb-4 text-white">
                         <span class="text-2xl mr-2">🎙️</span>
-                        <span class="font-poppins font-bold text-xl tracking-tight">DeepGuard</span>
+                        <span class="font-poppins font-bold text-xl tracking-tight">Deepfake Audio Detection</span>
                     </div>
                     <p class="text-sm text-gray-500 max-w-sm">Deepfake Audio Detection System — Final Year Mini Project.</p>
                 </div>
@@ -199,10 +199,11 @@
                     <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a>
                     <a href="detect.html" class="text-gray-400 hover:text-white transition-colors text-sm">Detect</a>
                     <a href="history.html" class="text-gray-400 hover:text-white transition-colors text-sm">History</a>
+                    <a href="analytics.html" class="text-gray-400 hover:text-white transition-colors text-sm">Analytics</a>
                 </div>
             </div>
             <div class="mt-10 pt-8 border-t border-gray-800 text-sm text-center text-gray-500">
-                <p>&copy; 2025 DeepGuard. All rights reserved.</p>
+                <p>&copy; 2025 Deepfake Audio Detection. All rights reserved.</p>
             </div>
         </div>
     </footer>

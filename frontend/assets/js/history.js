@@ -114,48 +114,54 @@ document.addEventListener("DOMContentLoaded", () => {
             const timeStr = dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
             const isFake = item.result.includes("Deepfake");
-            const icon = isFake ? '<i class="fas fa-exclamation-triangle text-red-500 text-2xl"></i>' : '<i class="fas fa-check-circle text-green-500 text-2xl"></i>';
-            const badgeClass = isFake ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400' : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
-            const cardBorder = isFake ? 'border-red-200 dark:border-red-900/30' : 'border-green-200 dark:border-green-900/30';
-
+            const progressBarBg = isFake ? 'bg-rose-400' : 'bg-emerald-400';
+            
+            const icon = isFake ? '<i class="fas fa-exclamation-triangle text-rose-500 text-2xl"></i>' : '<i class="fas fa-check-circle text-emerald-500 text-2xl"></i>';
+            const badgeClass = isFake ? 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400' : 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400';
+            const cardBorder = isFake ? 'border-rose-200 dark:border-rose-900/30' : 'border-emerald-200 dark:border-emerald-900/30';
+            
             const card = document.createElement('div');
-            card.className = `glass-card history-card rounded-2xl p-6 border ${cardBorder} shadow-sm fade-in relative overflow-hidden bg-white/70 dark:bg-navy/70`;
+            card.className = `glass-card history-card rounded-xl p-4 md:p-5 border ${cardBorder} shadow-sm fade-in relative overflow-hidden bg-white/70 dark:bg-navy/70 flex flex-col md:flex-row items-start md:items-center justify-between gap-4`;
             card.style.animationDelay = `${(index % 10) * 0.05}s`;
 
             card.innerHTML = `
-                <div class="flex justify-between items-start mb-4">
-                    <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4 w-full md:w-5/12">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 border ${cardBorder}">
                         ${icon}
-                        <div>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${badgeClass} mb-1">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <h3 class="text-sm font-bold text-gray-900 dark:text-white truncate" title="${item.filename}">
+                            ${item.filename}
+                        </h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold tracking-wide uppercase ${badgeClass}">
                                 ${item.result}
                             </span>
-                            <h3 class="text-sm font-bold text-gray-900 dark:text-white truncate max-w-[180px]" title="${item.filename}">
-                                ${item.filename}
-                            </h3>
+                            <span class="text-xs text-gray-500">${dateStr} &bull; ${timeStr}</span>
                         </div>
                     </div>
-                    <button onclick="window.deleteRecord(${item.id})" class="text-gray-400 hover:text-red-500 transition-colors" title="Delete record">
+                </div>
+                
+                <div class="w-full md:w-4/12 flex flex-col justify-center">
+                    <div class="flex justify-between text-xs font-semibold mb-1 w-full">
+                        <span class="text-gray-500 dark:text-gray-400">Confidence</span>
+                        <span class="font-poppins text-gray-900 dark:text-white">${item.confidence}%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden shadow-inner">
+                        <div class="h-2 rounded-full ${progressBarBg} transition-all duration-1000 ease-out" style="width: ${item.confidence}%"></div>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-3/12 flex items-center justify-between md:justify-end gap-6 text-sm">
+                    <div class="text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                        <i class="far fa-clock"></i> ${item.duration}s
+                    </div>
+                    <button onclick="window.deleteRecord(${item.id})" class="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" title="Delete record">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
                 
-                <div class="space-y-2 text-sm">
-                    <div class="flex justify-between">
-                        <span class="text-gray-500 dark:text-gray-400">Confidence</span>
-                        <span class="font-bold font-poppins text-gray-900 dark:text-white">${item.confidence}%</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500 dark:text-gray-400">Duration</span>
-                        <span class="text-gray-700 dark:text-gray-300">${item.duration}s</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span class="text-gray-500 dark:text-gray-400">Date</span>
-                        <span class="text-gray-700 dark:text-gray-300">${dateStr}</span>
-                    </div>
-                </div>
-                
-                ${isFake ? '<div class="absolute top-0 right-0 w-2 h-full bg-red-500 opacity-20"></div>' : '<div class="absolute top-0 right-0 w-2 h-full bg-green-500 opacity-20"></div>'}
+                ${isFake ? '<div class="absolute left-0 top-0 w-1 h-full bg-rose-500"></div>' : '<div class="absolute left-0 top-0 w-1 h-full bg-emerald-500"></div>'}
             `;
             container.appendChild(card);
         });

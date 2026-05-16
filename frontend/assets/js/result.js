@@ -17,9 +17,9 @@ window.displayResult = function (data) {
 
     // Theme colors
     const icon = isFake ? "⚠️" : "✅";
-    const titleColor = isFake ? "text-red-500" : "text-green-500";
-    const borderColor = isFake ? "border-red-200 dark:border-red-900/50" : "border-green-200 dark:border-green-900/50";
-    const bgColor = isFake ? "bg-red-50 dark:bg-red-900/10" : "bg-green-50 dark:bg-green-900/10";
+    const titleColor = isFake ? "text-rose-500" : "text-emerald-500";
+    const borderColor = isFake ? "border-rose-200 dark:border-rose-900/50" : "border-emerald-200 dark:border-emerald-900/50";
+    const bgColor = isFake ? "bg-rose-50 dark:bg-rose-900/10" : "bg-emerald-50 dark:bg-emerald-900/10";
 
     // HTML Template
     container.innerHTML = `
@@ -34,7 +34,7 @@ window.displayResult = function (data) {
                         <p><span class="font-semibold text-gray-900 dark:text-gray-100">File:</span> ${data.filename}</p>
                         <p><span class="font-semibold text-gray-900 dark:text-gray-100">Duration:</span> ${data.duration} seconds</p>
                         <p><span class="font-semibold text-gray-900 dark:text-gray-100">Analyzed:</span> ${dateStr}, ${timeStr}</p>
-                        ${isFake ? `<p><span class="font-semibold text-gray-900 dark:text-gray-100">Risk Level:</span> <span class="px-2 py-0.5 rounded text-white text-xs font-bold bg-red-500">🔴 ${data.risk_level}</span></p>` : ''}
+                        ${isFake ? `<p><span class="font-semibold text-gray-900 dark:text-gray-100">Risk Level:</span> <span class="px-2 py-0.5 rounded text-white text-xs font-bold bg-rose-500">🔴 ${data.risk_level}</span></p>` : ''}
                     </div>
                     
                     <div class="mt-6 flex flex-wrap gap-4">
@@ -47,13 +47,26 @@ window.displayResult = function (data) {
                     </div>
                 </div>
                 
-                <!-- Right Gauge -->
-                <div class="w-full md:w-auto flex flex-col items-center justify-center p-4 bg-white/50 dark:bg-black/20 rounded-xl border border-gray-200 dark:border-gray-800">
-                    <p class="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">Confidence Score</p>
-                    <div class="gauge-container">
+                <!-- Right Statistics & Gauge -->
+                <div class="w-full md:w-1/3 flex flex-col items-center justify-center p-6 bg-white/50 dark:bg-black/20 rounded-xl border border-gray-200 dark:border-gray-800">
+                    <p class="text-sm font-bold text-gray-800 dark:text-gray-200 mb-4 whitespace-nowrap">Confidence Score</p>
+                    
+                    <!-- Circular indicator -->
+                    <div class="gauge-container mb-6">
                         <canvas id="confidence-gauge"></canvas>
                         <div class="confidence-text">
-                            <span class="text-3xl font-bold font-poppins text-gray-900 dark:text-white">${data.confidence}%</span>
+                            <span class="text-4xl font-bold font-poppins text-gray-900 dark:text-white">${data.confidence}%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Linear Progress Bar -->
+                    <div class="w-full mt-2">
+                        <div class="flex justify-between text-xs font-semibold mb-1 w-full text-gray-600 dark:text-gray-400">
+                            <span>0%</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden shadow-inner">
+                            <div class="h-3 rounded-full ${isFake ? 'bg-rose-400' : 'bg-emerald-400'} transition-all duration-1000 ease-out" style="width: 0%" id="linear-confidence-bar"></div>
                         </div>
                     </div>
                 </div>
@@ -73,6 +86,14 @@ window.displayResult = function (data) {
     // Render Gauge
     renderGauge(data.confidence, isFake);
 
+    // Animate linear bar
+    setTimeout(() => {
+        const linearBar = document.getElementById('linear-confidence-bar');
+        if (linearBar) {
+            linearBar.style.width = `${data.confidence}%`;
+        }
+    }, 100);
+
     // Scroll to results
     container.scrollIntoView({ behavior: 'smooth', block: 'center' });
 };
@@ -85,15 +106,8 @@ function renderGauge(score, isFake) {
         gaugeChart.destroy();
     }
 
-    // Determine color based on threshold & result
-    // If fake, high score is red. If real, high score is green.
-    let color = '#22c55e'; // green
-    if (isFake) {
-        if (score > 70) color = '#ef4444'; // red
-        else if (score > 40) color = '#eab308'; // yellow
-    } else {
-        if (score < 50) color = '#eab308'; // yellow
-    }
+    // Explicit strict Color Coding: Rose -> Fake, Emerald -> Real
+    let color = isFake ? '#FB7185' : '#34D399'; // Soft Rose if fake, Soft Emerald if real
 
     const isDark = document.documentElement.classList.contains('dark');
     const bgColor = isDark ? '#334155' : '#e2e8f0';

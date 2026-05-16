@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeepGuard | Deepfake Audio Detection</title>
+    <title>Deepfake Audio Detection | AI-Powered Voice Authenticator</title>
     <meta name="description" content="AI-powered deepfake audio detection system. Upload audio files or monitor phone calls in real-time to detect AI-generated voices.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -27,7 +27,7 @@
     </script>
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-navy dark:text-white transition-colors duration-300 font-sans antialiased overflow-x-hidden">
 
@@ -37,13 +37,14 @@
             <div class="flex justify-between items-center h-16">
                 <a href="index.html" class="flex-shrink-0 flex items-center">
                     <span class="text-2xl mr-2">🎙️</span>
-                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">DeepGuard</span>
+                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">Deepfake Audio Detection</span>
                 </a>
                 <div class="hidden md:flex items-center gap-1">
                     <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a>
                     <a href="detect.html" class="nav-link"><i class="fas fa-search"></i> Detect</a>
                     <a href="call-detection.html" class="nav-link"><i class="fas fa-phone-alt"></i> Call Alert</a>
                     <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+                    <a href="analytics.html" class="nav-link"><i class="fas fa-chart-pie"></i> Analytics</a>
                     <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
                     <button id="theme-toggle" class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
                         <i class="fas fa-moon dark:hidden text-gray-600"></i>
@@ -67,6 +68,7 @@
                 <a href="detect.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-search w-5"></i> Detect Audio</a>
                 <a href="call-detection.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-phone-alt w-5"></i> Call Alert</a>
                 <a href="history.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-history w-5"></i> History</a>
+                <a href="analytics.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-chart-pie w-5"></i> Analytics</a>
                 <a href="about.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-info-circle w-5"></i> About</a>
             </div>
         </div>
@@ -80,30 +82,45 @@
         <div class="absolute -bottom-8 left-1/2 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-[120px] opacity-30 animate-blob animation-delay-4000"></div>
 
         <div class="relative z-10 text-center px-4 flex flex-col items-center">
-            <div class="w-full max-w-2xl mx-auto -mb-10 mt-10">
-                <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" class="w-full drop-shadow-2xl">
+
+            <!-- Curved Arc Title -->
+            <div class="hero-arc-wrapper mt-12 mb-2">
+                <svg class="hero-arc-svg" viewBox="-80 -20 960 260" overflow="visible" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <path id="curve" d="M 150,160 Q 400,40 650,160" />
-                        <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#6366F1;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#22D3EE;stop-opacity:1" />
+                        <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#6366F1;"/>
+                            <stop offset="50%" style="stop-color:#22D3EE;"/>
+                            <stop offset="100%" style="stop-color:#a855f7;"/>
                         </linearGradient>
+                        <!-- Wide arc so all letters fit comfortably -->
+                        <path id="arc1" d="M 10,220 Q 390,20 775,220" />
+                        <filter id="arcGlow" x="-30%" y="-30%" width="160%" height="160%">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
                     </defs>
-                    <text fill="url(#grad)" font-size="34" font-weight="bold" font-family="Poppins" letter-spacing="2" class="animate-pulse-slow">
-                        <textPath href="#curve" startOffset="50%" text-anchor="middle">DEEPFAKE AUDIO DETECTION</textPath>
+                    <!-- Glow shadow layer -->
+                    <text font-family="Orbitron, sans-serif" font-weight="900" font-size="42" fill="url(#arcGrad)" filter="url(#arcGlow)" opacity="0.45" letter-spacing="1.5">
+                        <textPath href="#arc1" startOffset="50%" text-anchor="middle">DEEPFAKE AUDIO DETECTION</textPath>
+                    </text>
+                    <!-- Main text layer -->
+                    <text font-family="Orbitron, sans-serif" font-weight="900" font-size="42" fill="url(#arcGrad)" letter-spacing="1.5">
+                        <textPath href="#arc1" startOffset="50%" text-anchor="middle">DEEPFAKE AUDIO DETECTION</textPath>
                     </text>
                 </svg>
             </div>
-            <p class="mt-2 text-xl md:text-2xl text-gray-700 dark:text-gray-300 font-light mb-8 font-poppins text-shadow">
-                Detect AI-Generated Voices in Real-Time
+
+            <!-- Subtitle -->
+            <p class="mt-1 text-lg md:text-xl text-gray-600 dark:text-gray-300 font-light mb-6 font-poppins tracking-wide text-shadow">
+                Protect Yourself from AI-Generated Voice Scams
             </p>
-            <div class="inline-flex items-center space-x-2 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-full px-4 py-1.5 mb-10 shadow-sm">
-                <span class="text-green-500"><i class="fas fa-shield-alt"></i></span>
-                <span class="text-sm font-medium">🔒 AI-Powered Detection</span>
+            <div class="inline-flex items-center space-x-2 bg-white/10 dark:bg-black/20 backdrop-blur-lg border border-indigo/30 dark:border-gray-700 rounded-full px-5 py-2 mb-10 shadow-sm">
+                <span class="text-green-400"><i class="fas fa-shield-alt"></i></span>
+                <span class="text-sm font-semibold tracking-wide">🔒 AI-Powered &nbsp;·&nbsp; Real-Time &nbsp;·&nbsp; High Accuracy</span>
             </div>
             <div class="flex flex-col sm:flex-row gap-4">
                 <a href="detect.html" class="group relative px-8 py-4 bg-gradient-to-r from-indigo to-cyan text-white font-bold rounded-full text-lg shadow-lg hover:shadow-cyan/50 hover:scale-105 transition-all duration-300">
-                    <span class="relative z-10"><i class="fas fa-upload mr-2"></i>Upload & Detect</span>
+                    <span class="relative z-10"><i class="fas fa-upload mr-2"></i>Upload &amp; Detect</span>
                     <div class="absolute inset-0 h-full w-full rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity"></div>
                 </a>
                 <a href="call-detection.html" class="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold rounded-full text-lg shadow-lg hover:shadow-purple-500/50 hover:scale-105 transition-all duration-300">
@@ -235,7 +252,7 @@
                 <div class="mb-6 md:mb-0">
                     <div class="flex items-center justify-center md:justify-start mb-4 text-white">
                         <span class="text-2xl mr-2">🎙️</span>
-                        <span class="font-poppins font-bold text-xl tracking-tight">DeepGuard</span>
+                        <span class="font-poppins font-bold text-xl tracking-tight">Deepfake Audio Detection</span>
                     </div>
                     <p class="text-sm text-gray-500 max-w-sm">Deepfake Audio Detection System — Final Year Mini Project.</p>
                 </div>
@@ -243,11 +260,12 @@
                     <a href="detect.html" class="text-gray-400 hover:text-white transition-colors text-sm">Detect</a>
                     <a href="call-detection.html" class="text-gray-400 hover:text-white transition-colors text-sm">Call Alert</a>
                     <a href="history.html" class="text-gray-400 hover:text-white transition-colors text-sm">History</a>
+                    <a href="analytics.html" class="text-gray-400 hover:text-white transition-colors text-sm">Analytics</a>
                     <a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">About</a>
                 </div>
             </div>
             <div class="mt-10 pt-8 border-t border-gray-800 text-sm flex flex-col md:flex-row justify-between items-center text-gray-500">
-                <p>&copy; 2025 DeepGuard. All rights reserved.</p>
+                <p>&copy; 2025 Deepfake Audio Detection. All rights reserved.</p>
                 <p class="mt-2 md:mt-0">Built with Python, FastAPI, Scikit-Learn & Tailwind CSS</p>
             </div>
         </div>

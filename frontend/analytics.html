@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics Dashboard | Deepfake Audio Detection</title>
+    <meta name="description" content="View analytics and statistics based on historical deepfake voice detection results.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { navy: '#0F172A', indigo: '#6366F1', cyan: '#22D3EE', softgrey: '#94A3B8' },
+                    fontFamily: { sans: ['Inter', 'Poppins', 'sans-serif'], poppins: ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-900 dark:bg-navy dark:text-white transition-colors duration-300 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 backdrop-blur-md bg-white/70 dark:bg-navy/80 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="index.html" class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl mr-2">🎙️</span>
+                    <span class="font-poppins font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">Deepfake Audio Detection</span>
+                </a>
+                <div class="hidden md:flex items-center gap-1">
+                    <a href="index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="detect.html" class="nav-link"><i class="fas fa-search"></i> Detect</a>
+                    <a href="call-detection.html" class="nav-link"><i class="fas fa-phone-alt"></i> Call Alert</a>
+                    <a href="history.html" class="nav-link"><i class="fas fa-history"></i> History</a>
+                    <a href="analytics.html" class="nav-link active"><i class="fas fa-chart-pie"></i> Analytics</a>
+                    <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> About</a>
+                    <button id="theme-toggle" class="ml-2 p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-2">
+                    <button id="mobile-theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-300"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-800">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-navy border-b border-gray-200 dark:border-gray-800 mobile-menu-open">
+            <div class="px-3 py-3 space-y-1 flex flex-col">
+                <a href="index.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-home w-5"></i> Home</a>
+                <a href="detect.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-search w-5"></i> Detect Audio</a>
+                <a href="call-detection.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-phone-alt w-5"></i> Call Alert</a>
+                <a href="history.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-history w-5"></i> History</a>
+                <a href="analytics.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium bg-indigo/10 text-indigo"><i class="fas fa-chart-pie w-5"></i> Analytics</a>
+                <a href="about.html" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-base font-medium hover:bg-gray-100 dark:hover:bg-gray-800"><i class="fas fa-info-circle w-5"></i> About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ANALYTICS SECTION -->
+    <section class="pt-24 pb-20 min-h-screen bg-gray-50 dark:bg-[#0B1121]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-gray-200 dark:border-gray-800">
+                <div>
+                    <h1 class="text-3xl font-bold font-poppins mb-2">
+                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo to-cyan">Statistics Dashboard</span>
+                    </h1>
+                    <p class="text-gray-500 dark:text-gray-400">Insights and analytics based on all processed audio files.</p>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="analytics-loading" class="text-center py-16">
+                <i class="fas fa-spinner fa-spin text-3xl text-indigo mb-4"></i>
+                <p class="text-gray-500">Processing insights...</p>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="analytics-content" class="hidden fade-in space-y-8">
+                
+                <!-- Metrics Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm flex items-center gap-4 relative overflow-hidden bg-white/70 dark:bg-navy/70">
+                        <div class="w-12 h-12 rounded-full bg-indigo/10 flex items-center justify-center text-indigo text-xl flex-shrink-0"><i class="fas fa-file-audio"></i></div>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Total Analyzed</p>
+                            <h3 id="stat-total" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">0</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm flex items-center gap-4 relative overflow-hidden bg-white/70 dark:bg-navy/70">
+                        <div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-500 text-xl flex-shrink-0"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Real Audio</p>
+                            <h3 id="stat-real" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">0</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm flex items-center gap-4 relative overflow-hidden bg-white/70 dark:bg-navy/70">
+                        <div class="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center text-red-500 text-xl flex-shrink-0"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Deepfake Audio</p>
+                            <h3 id="stat-fake" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">0</h3>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm flex items-center gap-4 relative overflow-hidden bg-white/70 dark:bg-navy/70">
+                        <div class="w-12 h-12 rounded-full bg-cyan/10 flex items-center justify-center text-cyan text-xl flex-shrink-0"><i class="fas fa-percentage"></i></div>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Avg Confidence</p>
+                            <h3 id="stat-confidence" class="text-3xl font-bold text-gray-900 dark:text-white mt-1">0%</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row 1: Pie and Line -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm bg-white/70 dark:bg-navy/70 lg:col-span-1 flex flex-col">
+                        <h3 class="font-semibold text-lg mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Distribution</h3>
+                        <div class="flex-1 min-h-[300px] relative w-full">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm bg-white/70 dark:bg-navy/70 lg:col-span-2 flex flex-col">
+                        <h3 class="font-semibold text-lg mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Confidence Trend Over Time</h3>
+                        <div class="flex-1 min-h-[300px] relative w-full">
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row 2: Bar Chart -->
+                <div class="glass-card rounded-2xl p-6 border border-gray-200 dark:border-gray-800 shadow-sm bg-white/70 dark:bg-navy/70 w-full flex flex-col">
+                    <h3 class="font-semibold text-lg mb-4 text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-gray-700 pb-2">Confidence by Sample</h3>
+                    <div class="flex-1 min-h-[350px] relative w-full">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Empty State -->
+            <div id="analytics-empty" class="hidden text-center py-16">
+                <i class="fas fa-chart-line text-5xl text-gray-300 dark:text-gray-700 mb-4"></i>
+                <p class="text-gray-500 dark:text-gray-400 text-lg">Not enough data to generate analytics.</p>
+                <a href="detect.html" class="inline-flex items-center gap-2 mt-4 text-indigo hover:text-cyan font-medium transition-colors">
+                    <i class="fas fa-arrow-right"></i> Analyze audio to generate data
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 border-t border-gray-800 text-gray-400 py-12 text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center justify-center md:justify-start mb-4 text-white">
+                        <span class="text-2xl mr-2">🎙️</span>
+                        <span class="font-poppins font-bold text-xl tracking-tight">Deepfake Audio Detection</span>
+                    </div>
+                    <p class="text-sm text-gray-500 max-w-sm">Deepfake Audio Detection System.</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="index.html" class="text-gray-400 hover:text-white transition-colors text-sm">Home</a>
+                    <a href="detect.html" class="text-gray-400 hover:text-white transition-colors text-sm">Detect</a>
+                    <a href="history.html" class="text-gray-400 hover:text-white transition-colors text-sm">History</a>
+                    <a href="about.html" class="text-gray-400 hover:text-white transition-colors text-sm">About</a>
+                </div>
+            </div>
+            <div class="mt-10 pt-8 border-t border-gray-800 text-sm text-center text-gray-500">
+                <p>&copy; 2025 Deepfake Audio Detection. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/analytics.js"></script>
+</body>
+</html>

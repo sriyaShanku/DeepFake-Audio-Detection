@@ -227,8 +227,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (isFake) {
                 resultIcon.textContent = "⚠️";
                 resultBadge.textContent = "HIGH RISK";
-                resultBadge.className = "px-4 py-1.5 rounded-full text-sm font-bold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400";
-                cardInner.className = "rounded-xl p-5 border-2 border-red-500 bg-red-50 dark:bg-red-900/10 transition-all duration-300";
+                resultBadge.className = "px-4 py-1.5 rounded-full text-sm font-bold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 animate-pulse";
+                cardInner.className = "rounded-xl p-5 border-2 border-red-500 bg-red-50 dark:bg-red-900/10 transition-all duration-300 alert-glow";
                 
                 // Show Popup Alert if confidence is high
                 if (response.confidence > 70) {

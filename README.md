@@ -1,7 +1,6 @@
 # Deepfake Audio Detection Using Machine Learning
 
-A full-stack machine learning-based system designed to detect whether an audio sample is real or AI-generated (deepfake).  
-The project supports both file-based detection and real-time audio monitoring using WebSockets.
+A full-stack machine learning-based deepfake audio detection system developed to identify whether an audio sample is real or AI-generated (deepfake), addressing the growing rise of frauds, scam calls, voice impersonation, and other cyber threats caused by deepfake technology, using MFCC feature extraction, Random Forest classification, and real-time audio monitoring through WebSockets.
 
 ## Features
 
@@ -87,4 +86,4 @@ The following preprocessing steps are applied:
 
 ## Conclusion
 
-This project provides a practical and efficient solution for detecting AI-generated deepfake audio using machine learning techniques. It supports both uploaded audio analysis and real-time detection while maintaining good performance in noisy environments.
+An efficient deepfake audio detection system that uses machine learning, MFCC feature extraction, and Random Forest classification to accurately identify real and AI-generated voices in both uploaded and real-time audio environments.

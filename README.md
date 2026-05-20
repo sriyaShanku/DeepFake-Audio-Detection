@@ -2,6 +2,9 @@
 
 A full-stack machine learning-based deepfake audio detection system developed to identify whether an audio sample is real or AI-generated (deepfake), addressing the growing rise of frauds, scam calls, voice impersonation, and other cyber threats caused by deepfake technology, using MFCC feature extraction, Random Forest classification, and real-time audio monitoring through WebSockets.
 
+## Live Demo
+https://demo-deepfake-audio-detection.netlify.app/
+ 
 ## Features
 
 - Detects real vs deepfake audio
@@ -67,14 +70,6 @@ The following preprocessing steps are applied:
 5. System predicts Real or Deepfake
 6. Confidence score and alert are displayed
 
-## Future Enhancements
-
-- Improve accuracy with larger datasets
-- Use CNN and Transformer models
-- Add speaker verification
-- Mobile application support
-- Cloud deployment
-- SMS and email alerts
 
 ## Applications
 

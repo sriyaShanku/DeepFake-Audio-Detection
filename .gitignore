@@ -12,8 +12,9 @@ env/
 # Environment variables
 .env
 
-# Ignore model files
 *.pkl
+!model/deepfake_model.pkl
+!model/scaler.pkl
 
 dataset/real/Call Recording.mp4
 

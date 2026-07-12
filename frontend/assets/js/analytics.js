@@ -2,7 +2,7 @@
  * analytics.js - Handles fetching history data and displaying charts for Statistics Dashboard
  */
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://realtime-deepfake-audio-detection.onrender.com';
 let analyticsData = [];
 
 document.addEventListener("DOMContentLoaded", () => {

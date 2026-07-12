@@ -2,7 +2,8 @@
  * call-detection.js - Handles real-time microphone recording and WebSocket streaming
  */
 
-const WS_URL = 'ws://localhost:8000/ws/realtime';
+//const WS_URL = 'ws://localhost:8000/ws/realtime';
+const WS_URL = 'wss://realtime-deepfake-audio-detection.onrender.com/ws/realtime';
 
 let websocket = null;
 let audioContext = null;

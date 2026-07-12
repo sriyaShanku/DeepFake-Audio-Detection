@@ -2,7 +2,8 @@
  * api.js - API Fetch requests for prediction
  */
 
-const API_BASE_URL = 'http://localhost:8000';
+//const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://realtime-deepfake-audio-detection.onrender.com';
 
 window.submitAnalysis = async function (file) {
     if (!file) return;

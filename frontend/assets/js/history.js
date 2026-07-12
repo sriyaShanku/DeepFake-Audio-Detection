@@ -4,7 +4,7 @@
 
 let allHistoryData = [];
 let currentFilter = 'All';
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = 'https://realtime-deepfake-audio-detection.onrender.com';
 
 document.addEventListener("DOMContentLoaded", () => {
     // Load initial data

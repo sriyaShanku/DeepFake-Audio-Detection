@@ -8,7 +8,7 @@ Try the application here:
 
 🔗 https://realtime-deepfake-audio-detector.onrender.com
 
->For the better experience, open the demo on a laptop or desktop browser.
+>For better experience, open the demo on a laptop or desktop browser.
 
 ## Features
 
